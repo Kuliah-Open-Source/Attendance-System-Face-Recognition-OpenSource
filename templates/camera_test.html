@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Test - Attendance System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4><i class="fas fa-camera"></i> Camera Test & Troubleshooting</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <video id="video" width="640" height="480" autoplay style="border: 2px solid #ddd; border-radius: 10px;"></video>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6><i class="fas fa-info-circle"></i> System Info:</h6>
+                                <ul id="systemInfo" class="list-unstyled">
+                                    <li><strong>Browser:</strong> <span id="browserInfo">-</span></li>
+                                    <li><strong>HTTPS:</strong> <span id="httpsInfo">-</span></li>
+                                    <li><strong>MediaDevices:</strong> <span id="mediaDevicesInfo">-</span></li>
+                                    <li><strong>Camera Status:</strong> <span id="cameraStatus">-</span></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6><i class="fas fa-tools"></i> Actions:</h6>
+                                <button class="btn btn-primary btn-sm mb-2 w-100" onclick="testCamera()">Test Camera</button>
+                                <button class="btn btn-success btn-sm mb-2 w-100" onclick="listDevices()">List Devices</button>
+                                <button class="btn btn-warning btn-sm mb-2 w-100" onclick="checkPermissions()">Check Permissions</button>
+                                <a href="/" class="btn btn-secondary btn-sm w-100">Back to Dashboard</a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h6><i class="fas fa-list"></i> Available Cameras:</h6>
+                            <div id="deviceList" class="alert alert-info">Click "List Devices" to see available cameras</div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h6><i class="fas fa-exclamation-triangle"></i> Common Issues & Solutions:</h6>
+                            <div class="accordion" id="troubleshootAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#issue1">
+                                            Camera Permission Denied
+                                        </button>
+                                    </h2>
+                                    <div id="issue1" class="accordion-collapse collapse" data-bs-parent="#troubleshootAccordion">
+                                        <div class="accordion-body">
+                                            <ul>
+                                                <li>Click camera icon in address bar and allow access</li>
+                                                <li>Go to browser settings → Privacy → Camera → Allow this site</li>
+                                                <li>Restart browser after changing permissions</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#issue2">
+                                            Camera Not Found
+                                        </button>
+                                    </h2>
+                                    <div id="issue2" class="accordion-collapse collapse" data-bs-parent="#troubleshootAccordion">
+                                        <div class="accordion-body">
+                                            <ul>
+                                                <li>Check if camera is connected properly</li>
+                                                <li>Close other applications using camera</li>
+                                                <li>Try different USB port</li>
+                                                <li>Update camera drivers</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#issue3">
+                                            Browser Not Supported
+                                        </button>
+                                    </h2>
+                                    <div id="issue3" class="accordion-collapse collapse" data-bs-parent="#troubleshootAccordion">
+                                        <div class="accordion-body">
+                                            <ul>
+                                                <li>Use Chrome, Firefox, or Edge (latest versions)</li>
+                                                <li>Access via HTTPS or localhost</li>
+                                                <li>Enable camera in browser settings</li>
+                                                <li>Clear browser cache and cookies</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let video = document.getElementById('video');
+
+        // Get system info
+        function getSystemInfo() {
+            document.getElementById('browserInfo').textContent = navigator.userAgent.split(' ').pop();
+            document.getElementById('httpsInfo').textContent = location.protocol === 'https:' ? 'Yes' : 'No (Required for camera)';
+            document.getElementById('mediaDevicesInfo').textContent = navigator.mediaDevices ? 'Supported' : 'Not Supported';
+        }
+
+        async function testCamera() {
+            try {
+                document.getElementById('cameraStatus').textContent = 'Testing...';
+                
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        width: { ideal: 640 }, 
+                        height: { ideal: 480 } 
+                    } 
+                });
+                
+                video.srcObject = stream;
+                document.getElementById('cameraStatus').innerHTML = '<span class="text-success">Working ✓</span>';
+                
+            } catch (err) {
+                console.error('Camera test failed:', err);
+                document.getElementById('cameraStatus').innerHTML = `<span class="text-danger">Failed: ${err.name}</span>`;
+            }
+        }
+
+        async function listDevices() {
+            try {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                const videoDevices = devices.filter(device => device.kind === 'videoinput');
+                
+                let html = '<strong>Found ' + videoDevices.length + ' camera(s):</strong><br>';
+                videoDevices.forEach((device, index) => {
+                    html += `${index + 1}. ${device.label || 'Camera ' + (index + 1)} (${device.deviceId.substring(0, 8)}...)<br>`;
+                });
+                
+                document.getElementById('deviceList').innerHTML = html;
+                
+            } catch (err) {
+                document.getElementById('deviceList').innerHTML = '<span class="text-danger">Error listing devices: ' + err.message + '</span>';
+            }
+        }
+
+        async function checkPermissions() {
+            try {
+                const result = await navigator.permissions.query({ name: 'camera' });
+                alert('Camera permission: ' + result.state);
+            } catch (err) {
+                alert('Cannot check permissions: ' + err.message);
+            }
+        }
+
+        // Initialize
+        getSystemInfo();
+        
+        // Auto test camera on load
+        setTimeout(testCamera, 1000);
+    </script>
+</body>
+</html>

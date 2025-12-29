@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition Attendance System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .video-container { position: relative; display: inline-block; }
+        #video { width: 100%; max-width: 640px; border-radius: 10px; }
+        .overlay { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 10px; border-radius: 5px; }
+        .card { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn-scan { background: linear-gradient(45deg, #007bff, #0056b3); }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">
+                <i class="fas fa-camera"></i> Face Recognition Attendance
+            </span>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-video"></i> Live Camera</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="video-container">
+                            <video id="video" autoplay></video>
+                            <div class="overlay" id="status">Ready</div>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-scan btn-lg text-white" onclick="recognizeFace()">
+                                <i class="fas fa-search"></i> Scan Wajah
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-users"></i> Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <a href="/register" class="btn btn-success btn-block mb-2 w-100">
+                            <i class="fas fa-user-plus"></i> Daftar Wajah Baru
+                        </a>
+                        <a href="/attendance" class="btn btn-info btn-block w-100">
+                            <i class="fas fa-list"></i> Lihat Data Kehadiran
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5><i class="fas fa-clock"></i> Kehadiran Hari Ini</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="todayAttendance">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-bell"></i> Status Log</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="logMessages" style="height: 200px; overflow-y: auto; background: #f8f9fa; padding: 10px; border-radius: 5px;">
+                            <div class="text-muted">Sistem siap digunakan...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let video = document.getElementById('video');
+        let canvas = document.createElement('canvas');
+        let ctx = canvas.getContext('2d');
+
+        // Start camera with better error handling
+        async function startCamera() {
+            try {
+                // Check if mediaDevices is supported
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                    throw new Error('Camera API tidak didukung di browser ini');
+                }
+
+                const constraints = {
+                    video: {
+                        width: { ideal: 640 },
+                        height: { ideal: 480 },
+                        facingMode: 'user'
+                    }
+                };
+
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                video.srcObject = stream;
+                
+                video.onloadedmetadata = () => {
+                    video.play();
+                    addLog('✅ Kamera berhasil diaktifkan', 'success');
+                };
+                
+            } catch (err) {
+                console.error('Camera error:', err);
+                let errorMsg = 'Error: Tidak dapat mengakses kamera';
+                
+                if (err.name === 'NotAllowedError') {
+                    errorMsg = 'Error: Akses kamera ditolak. Silakan izinkan akses kamera.';
+                } else if (err.name === 'NotFoundError') {
+                    errorMsg = 'Error: Kamera tidak ditemukan.';
+                } else if (err.name === 'NotSupportedError') {
+                    errorMsg = 'Error: Browser tidak mendukung akses kamera.';
+                }
+                
+                addLog(errorMsg, 'danger');
+                document.getElementById('status').textContent = 'Camera Error';
+                
+                // Show fallback message
+                document.querySelector('.video-container').innerHTML = `
+                    <div class="alert alert-danger text-center" style="width: 640px; height: 480px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                        <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                        <h5>Kamera Tidak Dapat Diakses</h5>
+                        <p class="mb-2">${errorMsg}</p>
+                        <small>Pastikan:</small>
+                        <ul class="text-start mt-2">
+                            <li>Browser mendukung kamera (Chrome/Firefox)</li>
+                            <li>Akses HTTPS atau localhost</li>
+                            <li>Izinkan akses kamera di browser</li>
+                            <li>Kamera tidak digunakan aplikasi lain</li>
+                        </ul>
+                        <button class="btn btn-primary mt-2" onclick="startCamera()">Coba Lagi</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Start camera on page load
+        startCamera();
+
+        function recognizeFace() {
+            if (!video.srcObject) {
+                addLog('Error: Kamera tidak aktif', 'danger');
+                return;
+            }
+            
+            if (video.videoWidth === 0 || video.videoHeight === 0) {
+                addLog('Error: Video belum siap', 'warning');
+                return;
+            }
+            
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0);
+            
+            let imageData = canvas.toDataURL('image/jpeg', 0.8);
+            
+            document.getElementById('status').textContent = 'Scanning...';
+            addLog('Memproses wajah...', 'info');
+            
+            fetch('/api/recognize_face', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image: imageData })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('status').textContent = `${data.name} (${data.confidence})`;
+                    addLog(`✅ ${data.message}`, data.attendance_marked ? 'success' : 'warning');
+                } else {
+                    document.getElementById('status').textContent = 'Unknown';
+                    addLog(`❌ ${data.message}`, 'danger');
+                }
+                loadTodayAttendance();
+            })
+            .catch(err => {
+                addLog('Error: Gagal memproses gambar', 'danger');
+                document.getElementById('status').textContent = 'Error';
+            });
+        }
+
+        function addLog(message, type = 'info') {
+            let logDiv = document.getElementById('logMessages');
+            let time = new Date().toLocaleTimeString();
+            let alertClass = type === 'success' ? 'text-success' : 
+                           type === 'danger' ? 'text-danger' : 
+                           type === 'warning' ? 'text-warning' : 'text-info';
+            
+            logDiv.innerHTML += `<div class="${alertClass}">[${time}] ${message}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function loadTodayAttendance() {
+            fetch('/api/attendance_data')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        let html = `<strong>Total: ${data.total_today} orang</strong><hr>`;
+                        data.today_attendance.forEach(record => {
+                            html += `<div class="mb-1">
+                                <i class="fas fa-user text-success"></i> ${record.Name} 
+                                <small class="text-muted">${record.Time}</small>
+                            </div>`;
+                        });
+                        document.getElementById('todayAttendance').innerHTML = html || '<div class="text-muted">Belum ada yang absen</div>';
+                    }
+                });
+        }
+
+        // Load today's attendance on page load
+        loadTodayAttendance();
+        
+        // Auto refresh every 30 seconds
+        setInterval(loadTodayAttendance, 30000);
+    </script>
+</body>
+</html>
