@@ -12,7 +12,7 @@
 
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
-### 🚀 Sistem absensi otomatis menggunakan teknologi computer vision dan machine learning untuk mengenali wajah karyawan secara real-time dengan antarmuka web yang modern dan premium.
+### 🚀 Sistem absensi otomatis menggunakan teknologi computer vision untuk mengenali wajah karyawan secara real-time dengan antarmuka web yang modern.
 
 <img src="https://user-images.githubusercontent.com/74038190/212284158-e840e285-664b-44d7-b79b-e264b5e54825.gif" width="400">
 
@@ -27,21 +27,21 @@
 <td width="50%">
 
 ### 🎥 **Core Features**
-- 🔍 **Real-time Face Recognition** - Deteksi dan pengenalan wajah secara langsung
-- 🌐 **Modern Web Interface** - UI/UX premium dengan animasi dan efek visual
-- 📱 **Responsive Design** - Berfungsi di desktop, tablet, dan mobile
+- 🔍 **Real-time Face Recognition** - Deteksi wajah dengan OpenCV Haar Cascade
+- 🌐 **Modern Web Interface** - Flask web app dengan Bootstrap UI
+- 📱 **Responsive Design** - Berfungsi di desktop dan mobile
 - 🔒 **Anti-duplicate System** - Mencegah absen ganda dalam satu hari
-- 📊 **Data Analytics** - Dashboard dengan statistik kehadiran
+- 📊 **CSV Data Export** - Export data kehadiran ke file CSV
 
 </td>
 <td width="50%">
 
-### 🎨 **Premium Effects**
-- ✨ **Glassmorphism** - Efek kaca transparan modern
-- 🎭 **3D Tilt Effects** - Animasi kartu 3D interaktif
-- 💫 **Neon Glow** - Efek cahaya neon yang memukau
+### 🎨 **UI/UX Features**
+- ✨ **Glassmorphism Design** - Efek kaca transparan modern
+- 🎭 **3D Card Effects** - Animasi kartu 3D interaktif
+- 💫 **Neon Glow Effects** - Efek cahaya neon pada video
 - 🎪 **Floating Animations** - Elemen melayang yang smooth
-- 🧲 **Magnetic Buttons** - Tombol yang tertarik ke mouse
+- 🧲 **Magnetic Buttons** - Tombol interaktif dengan hover effects
 
 </td>
 </tr>
@@ -89,7 +89,7 @@ venv\Scripts\activate
 # 📦 Install dependencies
 pip install -r requirements.txt
 
-# 🚀 Run application
+# 🚀 Run web application
 python app.py
 ```
 
@@ -116,67 +116,80 @@ python app.py
 <td width="25%" align="center">
 <img src="https://user-images.githubusercontent.com/74038190/212257481-9e9588a0-8fce-4908-8a30-5353b02aa5e8.gif" width="80">
 <h3>1️⃣ Register</h3>
-<p>Daftarkan wajah karyawan baru</p>
+<p>Daftarkan wajah karyawan</p>
 </td>
 <td width="25%" align="center">
 <img src="https://user-images.githubusercontent.com/74038190/212257465-7ce8d493-cac5-494e-982a-5a9deb852c4b.gif" width="80">
-<h3>2️⃣ Scan</h3>
-<p>Sistem otomatis mengenali wajah</p>
+<h3>2️⃣ Attendance</h3>
+<p>Scan wajah untuk absen</p>
 </td>
 <td width="25%" align="center">
 <img src="https://user-images.githubusercontent.com/74038190/212257468-1e9a91f1-b626-4baa-b15d-5c385dfa7763.gif" width="80">
-<h3>3️⃣ Analytics</h3>
-<p>Lihat data dan statistik</p>
+<h3>3️⃣ View Data</h3>
+<p>Lihat data kehadiran</p>
 </td>
 <td width="25%" align="center">
 <img src="https://user-images.githubusercontent.com/74038190/212257460-738ff738-247f-4445-a718-cdd0ca76e2db.gif" width="80">
-<h3>4️⃣ Export</h3>
-<p>Download laporan CSV</p>
+<h3>4️⃣ Diagnostics</h3>
+<p>Test kamera</p>
 </td>
 </tr>
 </table>
 
-### 🎯 Detailed Steps
+### 🎯 Web Interface
 
 <details>
-<summary>👤 <b>1. Register Employee Face</b></summary>
+<summary>🏠 <b>Dashboard (http://localhost:5000)</b></summary>
 
-- 🌐 Kunjungi `/register`
-- ✍️ Masukkan nama karyawan
-- 📸 Ambil foto dengan kamera
-- ✅ Klik "Daftarkan Wajah"
+- 🎥 Live camera feed dengan face recognition
+- 🔄 Auto-scan setiap 3 detik atau manual scan
+- 📊 Statistik kehadiran hari ini
+- 🎨 Premium UI dengan glassmorphism effects
 
 </details>
 
 <details>
-<summary>🎥 <b>2. Attendance System</b></summary>
+<summary>👤 <b>Register Face (/register)</b></summary>
 
-- 📊 Dashboard utama menampilkan live camera
-- ⏰ Sistem otomatis mengenali wajah setiap 3 detik
-- 👆 Atau klik "Scan Wajah" untuk manual scan
-- 💾 Data kehadiran tersimpan otomatis
-
-</details>
-
-<details>
-<summary>📈 <b>3. View Attendance Data</b></summary>
-
-- 📋 Kunjungi `/attendance`
-- 🔍 Filter data berdasarkan tanggal
-- 📊 Export ke CSV
-- 📈 Lihat statistik real-time
+- ✍️ Input nama karyawan
+- 📸 Capture foto dengan webcam
+- 💾 Simpan ke folder `faces/`
+- ✅ Konfirmasi registrasi berhasil
 
 </details>
 
 <details>
-<summary>🔧 <b>4. Camera Diagnostics</b></summary>
+<summary>📊 <b>Attendance Data (/attendance)</b></summary>
 
-- 🛠️ Kunjungi `/camera-test`
-- 🔍 Test kamera dan troubleshooting
-- 📊 Monitor performance metrics
+- 📋 Tabel data kehadiran lengkap
+- 🔍 Filter berdasarkan tanggal
+- 📈 Statistik kehadiran real-time
+- 💾 Export data ke CSV
+
+</details>
+
+<details>
+<summary>🔧 <b>Camera Test (/camera-test)</b></summary>
+
+- 🎥 Test kamera dan troubleshooting
+- 📊 Performance metrics real-time
+- 🔍 Device detection dan diagnostics
 - 📥 Download diagnostic report
 
 </details>
+
+### 💻 CLI Version
+
+```bash
+# Daftarkan wajah (CLI)
+python register_face.py
+
+# Jalankan attendance (CLI)
+python face_recognition.py
+
+# Lihat data kehadiran (CLI)
+python view_attendance.py
+```
 
 ---
 
@@ -188,11 +201,11 @@ python app.py
 
 ```mermaid
 graph TD
-    A[📹 Camera Input] --> B[🔍 Face Detection]
-    B --> C[🧠 Feature Extract]
+    A[📹 Webcam Input] --> B[🔍 Haar Cascade Detection]
+    B --> C[📊 Histogram Features]
     C --> D[🗃️ Face Database]
-    D --> E[🔄 Face Matching]
-    E --> F[📊 Attendance Log]
+    D --> E[🔄 Correlation Matching]
+    E --> F[📝 CSV Attendance Log]
     
     style A fill:#ff6b6b
     style B fill:#4ecdc4
@@ -206,10 +219,10 @@ graph TD
 
 <div align="center">
 
-| Backend | Frontend | Computer Vision | Database | UI/UX |
-|---------|----------|----------------|----------|-------|
-| ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white) | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) | ![OpenCV](https://img.shields.io/badge/OpenCV-27338e?style=for-the-badge&logo=OpenCV&logoColor=white) | ![CSV](https://img.shields.io/badge/CSV-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white) | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) |
-| ![NumPy](https://img.shields.io/badge/NumPy-777BB4?style=for-the-badge&logo=numpy&logoColor=white) | ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) | ![Haar Cascade](https://img.shields.io/badge/Haar_Cascade-FF6B6B?style=for-the-badge) | ![Pandas](https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white) | ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white) |
+| Backend | Frontend | Computer Vision | Database | UI Framework |
+|---------|----------|----------------|----------|-------------|
+| ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white) | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) | ![OpenCV](https://img.shields.io/badge/OpenCV-27338e?style=for-the-badge&logo=OpenCV&logoColor=white) | ![CSV](https://img.shields.io/badge/CSV-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white) | ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white) |
+| ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) | ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) | ![NumPy](https://img.shields.io/badge/NumPy-777BB4?style=for-the-badge&logo=numpy&logoColor=white) | ![Pandas](https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white) | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) |
 
 </div>
 
@@ -223,110 +236,76 @@ graph TD
 
 ```
 🎯 face-recognition-attendance/
-├── 📂 static/
+├── 📂 static/                    # Web assets
 │   ├── 🎨 css/
-│   │   ├── ✨ style.css           # Main styling
-│   │   ├── 🎭 effects.css         # Premium effects
-│   │   ├── 📝 text-fixes.css      # Text visibility
-│   │   └── 📷 camera-test.css     # Camera diagnostics
+│   │   ├── style.css            # Main styling dengan tema merah-putih
+│   │   ├── effects.css          # Premium effects (glassmorphism, 3D)
+│   │   ├── text-fixes.css       # Text visibility fixes
+│   │   └── camera-test.css      # Camera diagnostics styling
 │   ├── ⚡ js/
-│   │   ├── 🧠 app.js             # Core JavaScript
-│   │   └── 🎪 premium-effects.js  # Interactive effects
-│   └── 🎯 favicon.svg            # App icon
-├── 🌐 templates/
-│   ├── 🏠 index.html             # Dashboard
-│   ├── 👤 register.html          # Face registration
-│   ├── 📊 attendance.html        # Data viewer
-│   └── 🔧 camera_test.html       # Diagnostics
-├── 👥 faces/                     # Face database
-├── 🚀 app.py                     # Flask application
-├── 🤖 face_recognition.py        # CLI version
-├── 📝 register_face.py           # CLI registration
-├── 📈 view_attendance.py         # CLI data viewer
-├── 📊 attendance.csv             # Attendance data
-├── 📦 requirements.txt           # Dependencies
-├── 📖 README.md                  # Documentation
-├── ⚖️ LICENSE                    # MIT License
-├── 🤝 CONTRIBUTING.md            # Contribution guide
-├── 📋 CODE_OF_CONDUCT.md         # Code of conduct
-└── 🚀 run.sh                     # Launch script
+│   │   ├── app.js              # Core JavaScript functionality
+│   │   └── premium-effects.js   # Interactive effects (magnetic, tilt)
+│   └── 🎯 favicon.svg          # App icon
+├── 🌐 templates/                # Flask templates
+│   ├── index.html              # Dashboard dengan live camera
+│   ├── register.html           # Face registration form
+│   ├── attendance.html         # Data viewer dengan filter
+│   └── camera_test.html        # Camera diagnostics
+├── 👥 faces/                    # Face database (images)
+├── 🚀 app.py                   # Flask web application
+├── 🤖 face_recognition.py      # CLI version
+├── 📝 register_face.py         # CLI registration
+├── 📊 view_attendance.py       # CLI data viewer
+├── 📈 attendance.csv           # Attendance data
+├── 📦 requirements.txt         # Python dependencies
+├── 🔧 run.sh                   # CLI launcher
+├── 🌐 run_web.sh              # Web launcher
+├── 📖 README.md               # Documentation
+├── ⚖️ LICENSE                 # MIT License
+├── 🤝 CONTRIBUTING.md         # Contribution guide
+└── 📋 CODE_OF_CONDUCT.md      # Code of conduct
 ```
 
 ---
 
-## 🎨 UI/UX Features
-
-<div align="center">
-<img src="https://user-images.githubusercontent.com/74038190/212257470-1f283c85-8d75-4c94-9f5c-6d3c3d0c7a5e.gif" width="100">
-</div>
-
-<table>
-<tr>
-<td width="33%" align="center">
-<img src="https://user-images.githubusercontent.com/74038190/212257475-e0d3d5c2-c4c4-4c4c-8c4c-8c4c8c4c8c4c.gif" width="80">
-<h3>✨ Glassmorphism</h3>
-<p>Modern glass-like effects</p>
-</td>
-<td width="33%" align="center">
-<img src="https://user-images.githubusercontent.com/74038190/212257477-1f283c85-8d75-4c94-9f5c-6d3c3d0c7a5e.gif" width="80">
-<h3>🎭 3D Animations</h3>
-<p>Interactive 3D card tilt</p>
-</td>
-<td width="33%" align="center">
-<img src="https://user-images.githubusercontent.com/74038190/212257479-e0d3d5c2-c4c4-4c4c-8c4c-8c4c8c4c8c4c.gif" width="80">
-<h3>💫 Neon Effects</h3>
-<p>Glowing elements</p>
-</td>
-</tr>
-<tr>
-<td width="33%" align="center">
-<img src="https://user-images.githubusercontent.com/74038190/212257481-9e9588a0-8fce-4908-8a30-5353b02aa5e8.gif" width="80">
-<h3>🎪 Floating</h3>
-<p>Smooth floating elements</p>
-</td>
-<td width="33%" align="center">
-<img src="https://user-images.githubusercontent.com/74038190/212257483-1f283c85-8d75-4c94-9f5c-6d3c3d0c7a5e.gif" width="80">
-<h3>🧲 Magnetic</h3>
-<p>Mouse-attracted buttons</p>
-</td>
-<td width="33%" align="center">
-<img src="https://user-images.githubusercontent.com/74038190/212257485-e0d3d5c2-c4c4-4c4c-8c4c-8c4c8c4c8c4c.gif" width="80">
-<h3>📱 Responsive</h3>
-<p>All screen sizes</p>
-</td>
-</tr>
-</table>
-
----
-
-## 🔧 Configuration
+## 🔧 Algorithm Details
 
 <div align="center">
 <img src="https://user-images.githubusercontent.com/74038190/212257487-1f283c85-8d75-4c94-9f5c-6d3c3d0c7a5e.gif" width="100">
 </div>
 
-### ⚙️ Adjust Recognition Sensitivity
+### 🎯 Face Detection
+- **Haar Cascade Classifier** - OpenCV pre-trained model
+- **Real-time Processing** - 30 FPS detection rate
+- **Multi-scale Detection** - Deteksi wajah berbagai ukuran
+
+### 📊 Feature Extraction
+- **Histogram Analysis** - Ekstraksi fitur dari grayscale image
+- **Normalization** - Normalisasi histogram untuk konsistensi
+- **Feature Vector** - 256-dimensional feature representation
+
+### 🔄 Face Matching
+- **Correlation Coefficient** - Perbandingan similarity antar wajah
+- **Confidence Threshold** - 0.7 minimum untuk recognition
+- **Best Match Selection** - Pilih wajah dengan skor tertinggi
+
+### ⚙️ Configuration
+
 ```python
-# 🎯 In face_recognition.py
+# Adjust recognition sensitivity
 best_score = 0.7  # Lower = more sensitive (0.5-0.8)
-```
 
-### ⏱️ Change Cooldown Timer
-```python
-# ⏰ Auto-scan interval
-recognition_cooldown = 3  # seconds between auto-scans
-```
+# Change auto-scan interval
+recognition_cooldown = 3  # seconds
 
-### 🔍 Modify Detection Parameters
-```python
-# 📷 Face detection settings
+# Modify detection parameters
 faces = face_cascade.detectMultiScale(gray, 1.1, 4)
 #                                    scale, neighbors
 ```
 
 ---
 
-## 📊 Performance Metrics
+## 📊 Performance
 
 <div align="center">
 <img src="https://user-images.githubusercontent.com/74038190/212257489-e0d3d5c2-c4c4-4c4c-8c4c-8c4c8c4c8c4c.gif" width="100">
@@ -358,7 +337,7 @@ faces = face_cascade.detectMultiScale(gray, 1.1, 4)
 ![Chrome](https://img.shields.io/badge/Chrome-✅_Recommended-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)
 ![Firefox](https://img.shields.io/badge/Firefox-✅_Good-FF7139?style=for-the-badge&logo=firefox&logoColor=white)
 ![Edge](https://img.shields.io/badge/Edge-✅_Good-0078D4?style=for-the-badge&logo=microsoftedge&logoColor=white)
-![Safari](https://img.shields.io/badge/Safari-✅_Good-000000?style=for-the-badge&logo=safari&logoColor=white)
+![Safari](https://img.shields.io/badge/Safari-✅_Limited-000000?style=for-the-badge&logo=safari&logoColor=white)
 
 </div>
 
@@ -420,8 +399,8 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 </a>
 </td>
 <td align="center">
-<a href="mailto:support@yourproject.com">
-<img src="https://img.shields.io/badge/📧_Email-Support-orange?style=for-the-badge">
+<a href="/camera-test">
+<img src="https://img.shields.io/badge/🔧_Diagnostics-Test_Camera-orange?style=for-the-badge">
 </a>
 </td>
 </tr>
@@ -455,7 +434,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <tr>
 <td align="center">
 <img src="https://img.shields.io/badge/OpenCV-Community-27338e?style=for-the-badge&logo=opencv&logoColor=white">
-<br><sub>Computer vision tools</sub>
+<br><sub>Computer vision library</sub>
 </td>
 <td align="center">
 <img src="https://img.shields.io/badge/Flask-Team-000000?style=for-the-badge&logo=flask&logoColor=white">
@@ -463,7 +442,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 </td>
 <td align="center">
 <img src="https://img.shields.io/badge/Bootstrap-Team-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white">
-<br><sub>UI components</sub>
+<br><sub>UI framework</sub>
 </td>
 </tr>
 </table>
@@ -480,44 +459,22 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <tr>
 <td width="50%">
 
-### 🔥 **Phase 1 - AI Enhancement**
-- [ ] 🧠 Deep learning integration (CNN)
-- [ ] 👥 Multi-face simultaneous recognition
+### 🔥 **Phase 1 - Core Improvements**
+- [ ] 🧠 Deep learning face recognition (CNN)
+- [ ] 👥 Multi-face detection support
 - [ ] 🎯 Improved accuracy algorithms
-- [ ] 🔍 Liveness detection
-- [ ] 🎭 Mask detection support
+- [ ] 📱 Mobile app development
+- [ ] 🗄️ Database integration (SQLite/PostgreSQL)
 
 </td>
 <td width="50%">
 
-### 🚀 **Phase 2 - Platform Expansion**
-- [ ] 🗄️ Database integration (PostgreSQL/MySQL)
+### 🚀 **Phase 2 - Enterprise Features**
 - [ ] 🌐 REST API development
-- [ ] 📱 Mobile app (React Native)
 - [ ] 🐳 Docker containerization
 - [ ] ☁️ Cloud deployment guides
-
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-### 📊 **Phase 3 - Analytics & Integration**
-- [ ] 📈 Advanced analytics dashboard
+- [ ] 📊 Advanced analytics dashboard
 - [ ] 🔔 Real-time notifications
-- [ ] 🏢 LDAP/Active Directory integration
-- [ ] 💼 HR system integration
-- [ ] 📊 Business intelligence reports
-
-</td>
-<td width="50%">
-
-### 🌟 **Phase 4 - Enterprise Features**
-- [ ] 🔐 Advanced security features
-- [ ] 🌍 Multi-language support
-- [ ] 🎨 Custom themes
-- [ ] 📡 IoT device integration
-- [ ] 🤖 AI-powered insights
 
 </td>
 </tr>
@@ -536,7 +493,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [![GitHub](https://img.shields.io/badge/GitHub-@yourusername-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/yourusername)
 [![Email](https://img.shields.io/badge/Email-your.email@example.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your.email@example.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Your_Profile-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/yourprofile)
-[![Twitter](https://img.shields.io/badge/Twitter-@yourusername-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/yourusername)
 
 </div>
 
