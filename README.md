@@ -99,7 +99,6 @@ python app.py
 
 ### 🌐 Akses aplikasi di: **http://localhost:5000**
 
-<img src="https://user-images.githubusercontent.com/74038190/212257467-871d32b7-e401-42e8-a166-fcfd7baa4c6b.gif" width="100">
 
 </div>
 
@@ -107,9 +106,6 @@ python app.py
 
 ## 📖 Usage Guide
 
-<div align="center">
-<img src="https://user-images.githubusercontent.com/74038190/212257472-08e52665-c503-4bd9-aa20-f5a4dae769b5.gif" width="100">
-</div>
 
 <table>
 <tr>
