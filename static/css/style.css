@@ -90,12 +90,13 @@ body::before {
 
 /* Enhanced Navigation */
 .navbar {
-    background: var(--gradient-primary) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(20px);
-    box-shadow: var(--shadow);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     border: none;
     padding: 1.5rem 0;
     position: relative;
+    border-bottom: 3px solid #dc2626;
 }
 
 .navbar::before {
@@ -117,29 +118,54 @@ body::before {
 .navbar-brand {
     font-weight: 700;
     font-size: 1.6rem;
-    color: var(--white) !important;
+    color: #1f2937 !important;
     display: flex;
     align-items: center;
     gap: 1rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    text-shadow: none;
     transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    background: rgba(248, 250, 252, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(220, 38, 38, 0.1);
 }
 
 .navbar-brand:hover {
     transform: scale(1.05);
-    text-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    color: #dc2626 !important;
+    background: rgba(248, 250, 252, 1);
+    box-shadow: 0 8px 25px rgba(220, 38, 38, 0.2);
+    border-color: rgba(220, 38, 38, 0.3);
 }
 
-.logo {
-    width: 45px;
-    height: 45px;
+.navbar-brand img {
+    width: 50px !important;
+    height: 50px !important;
     border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
     transition: all 0.3s ease;
+    background: white;
+    padding: 4px;
+    border: 2px solid #dc2626;
 }
 
-.logo:hover {
+.navbar-brand img:hover {
     transform: rotate(360deg) scale(1.1);
+    border-color: #dc2626;
+    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);
+}
+
+.navbar-text {
+    color: white !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-shadow: none;
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Enhanced Cards */
