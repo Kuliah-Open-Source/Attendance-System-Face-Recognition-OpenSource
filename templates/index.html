@@ -4,20 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Face Recognition Attendance System</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        .video-container { position: relative; display: inline-block; }
-        #video { width: 100%; max-width: 640px; border-radius: 10px; }
-        .overlay { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 10px; border-radius: 5px; }
-        .card { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .btn-scan { background: linear-gradient(45deg, #007bff, #0056b3); }
-    </style>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/effects.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/text-fixes.css') }}" rel="stylesheet">
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-dark bg-primary">
+<body>
+    <!-- Animated Background Bubbles -->
+    <div class="bubble-container">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
             <span class="navbar-brand mb-0 h1">
+                <img src="https://lh3.googleusercontent.com/d/1mYxQJ8vQJ9wQJ8vQJ9wQJ8vQJ9wQJ8vQ" alt="Logo" class="logo" onerror="this.style.display='none'">
                 <i class="fas fa-camera"></i> Face Recognition Attendance
             </span>
         </div>
@@ -26,17 +34,17 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-8">
-                <div class="card">
+                <div class="card slide-in-up card-3d floating">
                     <div class="card-header">
-                        <h5><i class="fas fa-video"></i> Live Camera</h5>
+                        <h5 class="text-gradient"><i class="fas fa-video"></i> Live Camera Feed</h5>
                     </div>
                     <div class="card-body text-center">
-                        <div class="video-container">
+                        <div class="video-container neon-glow">
                             <video id="video" autoplay></video>
-                            <div class="overlay" id="status">Ready</div>
+                            <div class="overlay breathing" id="status">Ready to Scan</div>
                         </div>
-                        <div class="mt-3">
-                            <button class="btn btn-scan btn-lg text-white" onclick="recognizeFace()">
+                        <div class="mt-4">
+                            <button class="btn btn-scan btn-lg btn-morph magnetic micro-bounce" onclick="recognizeFace()">
                                 <i class="fas fa-search"></i> Scan Wajah
                             </button>
                         </div>
@@ -45,26 +53,29 @@
             </div>
             
             <div class="col-md-4">
-                <div class="card">
+                <div class="card quick-actions slide-in-up glass stagger-item" style="animation-delay: 0.2s">
                     <div class="card-header">
-                        <h5><i class="fas fa-users"></i> Quick Actions</h5>
+                        <h5><i class="fas fa-bolt pulse"></i> Quick Actions</h5>
                     </div>
                     <div class="card-body">
-                        <a href="/register" class="btn btn-success btn-block mb-2 w-100">
+                        <a href="/register" class="btn btn-success btn-block mb-3 w-100 magnetic btn-liquid">
                             <i class="fas fa-user-plus"></i> Daftar Wajah Baru
                         </a>
-                        <a href="/attendance" class="btn btn-info btn-block w-100">
-                            <i class="fas fa-list"></i> Lihat Data Kehadiran
+                        <a href="/attendance" class="btn btn-info btn-block w-100 magnetic btn-liquid">
+                            <i class="fas fa-chart-bar"></i> Lihat Data Kehadiran
+                        </a>
+                        <a href="/camera-test" class="btn btn-warning btn-block w-100 mt-3 magnetic btn-liquid">
+                            <i class="fas fa-tools"></i> Test Kamera
                         </a>
                     </div>
                 </div>
 
-                <div class="card mt-3">
+                <div class="card mt-3 slide-in-up glass stagger-item" style="animation-delay: 0.4s">
                     <div class="card-header">
-                        <h5><i class="fas fa-clock"></i> Kehadiran Hari Ini</h5>
+                        <h5><i class="fas fa-users floating"></i> Kehadiran Hari Ini</h5>
                     </div>
                     <div class="card-body">
-                        <div id="todayAttendance">Loading...</div>
+                        <div id="todayAttendance" class="today-attendance">Loading...</div>
                     </div>
                 </div>
             </div>
@@ -72,13 +83,13 @@
 
         <div class="row mt-4">
             <div class="col-12">
-                <div class="card">
+                <div class="card slide-in-up glass stagger-item" style="animation-delay: 0.6s">
                     <div class="card-header">
-                        <h5><i class="fas fa-bell"></i> Status Log</h5>
+                        <h5><i class="fas fa-terminal particle-trail"></i> System Log</h5>
                     </div>
                     <div class="card-body">
-                        <div id="logMessages" style="height: 200px; overflow-y: auto; background: #f8f9fa; padding: 10px; border-radius: 5px;">
-                            <div class="text-muted">Sistem siap digunakan...</div>
+                        <div id="logMessages" class="log-container">
+                            <div class="text-muted"><i class="fas fa-info-circle"></i> Sistem siap digunakan...</div>
                         </div>
                     </div>
                 </div>
@@ -87,6 +98,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/premium-effects.js') }}"></script>
     <script>
         let video = document.getElementById('video');
         let canvas = document.createElement('canvas');

@@ -1,0 +1,456 @@
+/* Enhanced Additional CSS for premium effects */
+
+/* 3D Tilt Effect for Cards */
+.card-3d {
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.card-3d:hover {
+    transform: rotateX(5deg) rotateY(5deg) translateZ(20px);
+}
+
+/* Glassmorphism Effect */
+.glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Neon Glow Effect */
+.neon-glow {
+    box-shadow: 
+        0 0 5px var(--primary-red),
+        0 0 10px var(--primary-red),
+        0 0 15px var(--primary-red),
+        0 0 20px var(--primary-red);
+    animation: neon-pulse 2s infinite alternate;
+}
+
+@keyframes neon-pulse {
+    from {
+        box-shadow: 
+            0 0 5px var(--primary-red),
+            0 0 10px var(--primary-red),
+            0 0 15px var(--primary-red),
+            0 0 20px var(--primary-red);
+    }
+    to {
+        box-shadow: 
+            0 0 10px var(--primary-red),
+            0 0 20px var(--primary-red),
+            0 0 30px var(--primary-red),
+            0 0 40px var(--primary-red);
+    }
+}
+
+/* Floating Animation */
+.floating {
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Morphing Button */
+.btn-morph {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.btn-morph::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-morph:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Particle Trail Effect */
+.particle-trail {
+    position: relative;
+    overflow: visible;
+}
+
+.particle-trail::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: var(--primary-red);
+    border-radius: 50%;
+    opacity: 0;
+    animation: particle-trail 1s ease-out infinite;
+}
+
+@keyframes particle-trail {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0) translateY(-50px);
+    }
+}
+
+/* Liquid Button Effect */
+.btn-liquid {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-liquid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+}
+
+.btn-liquid:hover::before {
+    left: 100%;
+}
+
+/* Enhanced Ripple Effect */
+.ripple-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.8s cubic-bezier(0, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Magnetic Hover Effect */
+.magnetic {
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.magnetic:hover {
+    transform: translate3d(0, -8px, 0) scale(1.02);
+}
+
+/* Text Visibility Fixes */
+.text-gradient {
+    background: linear-gradient(45deg, var(--primary-red), var(--secondary-red), #f87171, var(--primary-red));
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 3s ease infinite;
+    font-weight: 700;
+}
+
+/* Fallback for text-gradient on unsupported browsers */
+@supports not (-webkit-background-clip: text) {
+    .text-gradient {
+        color: var(--primary-red) !important;
+        background: none;
+        -webkit-text-fill-color: unset;
+    }
+}
+
+/* Enhanced text contrast */
+.card-header h5,
+.card-header h6 {
+    color: var(--white) !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    font-weight: 700;
+}
+
+.card-body {
+    color: #2d3748 !important;
+}
+
+.card-body h5,
+.card-body h6 {
+    color: var(--primary-red) !important;
+    font-weight: 700;
+}
+
+/* Accordion text fixes */
+.accordion-button {
+    color: #2d3748 !important;
+    font-weight: 600;
+}
+
+.accordion-button:not(.collapsed) {
+    color: var(--white) !important;
+}
+
+.accordion-body {
+    color: #2d3748 !important;
+}
+
+.accordion-body h6 {
+    color: var(--primary-red) !important;
+    font-weight: 700;
+}
+
+/* Badge text contrast */
+.badge {
+    color: var(--white) !important;
+    font-weight: 700;
+}
+
+/* Info item text */
+.info-item {
+    color: #2d3748 !important;
+}
+
+.info-item strong {
+    color: var(--primary-red) !important;
+}
+
+/* List text visibility */
+.list-unstyled li {
+    color: #2d3748 !important;
+    margin-bottom: 8px;
+}
+
+/* Alert text */
+.alert {
+    color: #2d3748 !important;
+}
+
+/* Navbar text */
+.navbar-brand,
+.navbar-text {
+    color: var(--white) !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Button text */
+.btn {
+    color: var(--white) !important;
+    font-weight: 600;
+}
+
+/* Form text */
+.form-label {
+    color: var(--primary-red) !important;
+    font-weight: 600;
+}
+
+.form-control,
+.form-select {
+    color: #2d3748 !important;
+}
+
+/* Table text */
+.table thead th {
+    color: var(--white) !important;
+}
+
+.table tbody td {
+    color: #2d3748 !important;
+}
+
+/* Overlay text */
+.overlay {
+    color: var(--white) !important;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Status text */
+#todayAttendance,
+#logMessages {
+    color: #2d3748 !important;
+}
+
+/* Metric text */
+.metric-card h5 {
+    color: var(--primary-red) !important;
+    font-weight: 700;
+}
+
+.metric-card small {
+    color: #6b7280 !important;
+    font-weight: 500;
+}
+
+/* Dark backgrounds need light text */
+.stats-card,
+.stats-card * {
+    color: var(--white) !important;
+}
+
+/* Notification text */
+.notification-toast {
+    color: #2d3748 !important;
+}
+
+/* Loading text */
+.loading-overlay {
+    color: var(--primary-red) !important;
+    font-weight: 600;
+}
+
+/* Small text visibility */
+small,
+.small {
+    color: #6b7280 !important;
+}
+
+/* Link text */
+a {
+    color: var(--primary-red) !important;
+}
+
+a:hover {
+    color: var(--secondary-red) !important;
+}
+
+@keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Stagger Animation */
+.stagger-item {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: stagger-in 0.6s ease forwards;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0.1s; }
+.stagger-item:nth-child(2) { animation-delay: 0.2s; }
+.stagger-item:nth-child(3) { animation-delay: 0.3s; }
+.stagger-item:nth-child(4) { animation-delay: 0.4s; }
+.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes stagger-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Breathing Animation */
+.breathing {
+    animation: breathing 4s ease-in-out infinite;
+}
+
+@keyframes breathing {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Parallax Scroll Effect */
+.parallax {
+    transform: translateZ(0);
+    transition: transform 0.1s;
+}
+
+/* Enhanced Loading States */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Micro Interactions */
+.micro-bounce {
+    transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.micro-bounce:active {
+    transform: scale(0.95);
+}
+
+/* Enhanced Focus States */
+.focus-ring:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3);
+}
+
+/* Smooth Page Transitions */
+.page-transition {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.page-transition.loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Enhanced Mobile Optimizations */
+@media (max-width: 768px) {
+    .card-3d:hover {
+        transform: none; /* Disable 3D effects on mobile */
+    }
+    
+    .neon-glow {
+        animation: none; /* Disable heavy animations on mobile */
+    }
+    
+    .floating {
+        animation-duration: 4s; /* Slower animations on mobile */
+    }
+}
+
+/* Dark Mode Enhancements */
+@media (prefers-color-scheme: dark) {
+    .glass {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .skeleton {
+        background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+    }
+}
+
+/* Print Styles */
+@media print {
+    .bubble-container,
+    .floating,
+    .neon-glow {
+        display: none;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}

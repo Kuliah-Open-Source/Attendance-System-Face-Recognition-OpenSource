@@ -114,6 +114,10 @@ def register():
 def attendance():
     return render_template('attendance.html')
 
+@app.route('/favicon.ico')
+def favicon():
+    return '', 204
+
 @app.route('/camera-test')
 def camera_test():
     return render_template('camera_test.html')

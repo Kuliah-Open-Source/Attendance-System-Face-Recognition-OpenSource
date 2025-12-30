@@ -1,0 +1,114 @@
+/* Text Visibility Fixes */
+
+/* Global text color fixes */
+body {
+    color: #2d3748 !important;
+}
+
+/* Card text visibility */
+.card {
+    color: #2d3748 !important;
+}
+
+.card-body * {
+    color: #2d3748 !important;
+}
+
+.card-header * {
+    color: var(--white) !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Form labels */
+.form-label {
+    color: var(--primary-red) !important;
+    font-weight: 600;
+}
+
+/* Alert text */
+.alert {
+    color: #2d3748 !important;
+}
+
+/* List items */
+ul li, ol li {
+    color: #2d3748 !important;
+}
+
+/* Accordion text */
+.accordion-button {
+    color: #2d3748 !important;
+}
+
+.accordion-body {
+    color: #2d3748 !important;
+}
+
+/* Badge text */
+.badge {
+    color: var(--white) !important;
+    font-weight: 600;
+}
+
+/* Table text */
+.table tbody td {
+    color: #2d3748 !important;
+}
+
+/* Log container text */
+#logMessages,
+#todayAttendance {
+    color: #2d3748 !important;
+}
+
+/* Info items */
+.info-item {
+    color: #2d3748 !important;
+}
+
+/* Small text */
+small, .small {
+    color: #6b7280 !important;
+}
+
+/* Text gradient fallback */
+@supports not (-webkit-background-clip: text) {
+    .text-gradient {
+        color: var(--primary-red) !important;
+        background: none;
+        -webkit-text-fill-color: unset;
+    }
+}
+
+/* Ensure headings are visible */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-red) !important;
+}
+
+.card-header h1,
+.card-header h2,
+.card-header h3,
+.card-header h4,
+.card-header h5,
+.card-header h6 {
+    color: var(--white) !important;
+}
+
+/* Paragraph text */
+p {
+    color: #2d3748 !important;
+}
+
+/* Strong text */
+strong {
+    color: var(--primary-red) !important;
+}
+
+/* Link text */
+a {
+    color: var(--primary-red) !important;
+}
+
+a:hover {
+    color: var(--secondary-red) !important;
+}
